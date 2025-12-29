@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voedselbos Beatrixpark- Groen & Samen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Algemene stijlen */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+       
+        body {
+            background-color: #f8f9f8;
+            color: #333;
+            line-height: 1.6;
+        }
+       
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+       
+        section {
+            padding: 60px 0;
+        }
+       
+        h1, h2, h3 {
+            color: #2d5a27;
+            margin-bottom: 20px;
+        }
+       
+        h1 {
+            font-size: 2.8rem;
+            line-height: 1.2;
+        }
+       
+        h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+       
+        h2:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: #7cb371;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+       
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+       
+        .btn {
+            display: inline-block;
+            background-color: #4a7c59;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+       
+        .btn:hover {
+            background-color: #3a6348;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+       
+        /* Header & navigatie */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+       
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+       
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+       
+        .logo i {
+            color: #4a7c59;
+            font-size: 2.2rem;
+            margin-right: 10px;
+        }
+       
+        .logo-text h3 {
+            margin-bottom: 5px;
+            color: #2d5a27;
+        }
+       
+        .logo-text p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0;
+        }
+       
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+       
+        nav ul li {
+            margin-left: 25px;
+        }
+       
+        nav ul li a {
+            text-decoration: none;
+            color: #444;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+       
+        nav ul li a:hover {
+            color: #4a7c59;
+        }
+       
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #4a7c59;
+            cursor: pointer;
+        }
+       
+        /* Hero sectie */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.9)), url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+            padding: 100px 0;
+            text-align: center;
+        }
+       
+        .hero h1 {
+            max-width: 800px;
+            margin: 0 auto 25px;
+        }
+       
+        .hero p {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1.2rem;
+            color: #555;
+        }
+       
+        /* Over ons sectie */
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+       
+        .about-text {
+            flex: 1;
+        }
+       
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+       
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s;
+        }
+       
+        .about-image:hover img {
+            transform: scale(1.03);
+        }
+       
+        /* Wat is een voedselbos sectie */
+        .features {
+            background-color: #f0f7ee;
+        }
+       
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+       
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+       
+        .card:hover {
+            transform: translateY(-10px);
+        }
+       
+        .card-icon {
+            background-color: #e9f5e9;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+       
+        .card-icon i {
+            font-size: 1.8rem;
+            color: #4a7c59;
+        }
+       
+        .card h3 {
+            margin-bottom: 15px;
+        }
+       
+        /* Locatie sectie */
+        .location-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+       
+        .map-placeholder {
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            background-color: #e9f5e9;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+       
+        .map-placeholder i {
+            font-size: 4rem;
+            color: #7cb371;
+            margin-bottom: 20px;
+        }
+       
+        .address {
+            text-align: center;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 800px;
+        }
+       
+        /* Activiteiten sectie */
+        .activities-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+       
+        .activity {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+       
+        .activity-img {
+            height: 180px;
+            background-color: #e9f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a7c59;
+            font-size: 3rem;
+        }
+       
+        .activity-content {
+            padding: 25px;
+        }
+       
+        /* Contact sectie */
+        .contact {
+            background-color: #f0f7ee;
+        }
+       
+        .contact-container {
+            display: flex;
+            gap: 50px;
+        }
+       
+        .contact-info {
+            flex: 1;
+        }
+       
+        .contact-form {
+            flex: 1;
+        }
+       
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+       
+        .contact-icon {
+            background-color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #4a7c59;
+            font-size: 1.2rem;
+        }
+       
+        .form-group {
+            margin-bottom: 20px;
+        }
+       
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+       
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+       
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+       
+        /* Footer */
+        footer {
+            background-color: #2d5a27;
+            color: white;
+            padding: 50px 0 20px;
+        }
+       
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+       
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+            padding-right: 20px;
+        }
+       
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+       
+        .footer-links {
+            list-style: none;
+        }
+       
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+       
+        .footer-links a {
+            color: #d1e8d1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+       
+        .footer-links a:hover {
+            color: white;
+        }
+       
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+       
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+       
+        .social-icons a:hover {
+            background-color: #4a7c59;
+        }
+       
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #d1e8d1;
+        }
+       
+        /* Responsive aanpassingen */
+        @media (max-width: 992px) {
+            .about-content, .contact-container {
+                flex-direction: column;
+            }
+           
+            .about-image {
+                order: -1;
+            }
+        }
+       
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+           
+            h2 {
+                font-size: 1.8rem;
+            }
+           
+            .header-container {
+                flex-wrap: wrap;
+            }
+           
+            nav {
+                width: 100%;
+                order: 3;
+                margin-top: 20px;
+                display: none;
+            }
+           
+            nav.active {
+                display: block;
+            }
+           
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+           
+            nav ul li {
+                margin: 10px 0;
+            }
+           
+            .mobile-menu-btn {
+                display: block;
+            }
+           
+            .hero {
+                padding: 70px 0;
+            }
+           
+            section {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & navigatie -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tree"></i>
+                <div class="logo-text">
+                    <h3>Voedselbos Beatrixpark</h3>
+                    <p>Groen, lekker & samen</p>
+                </div>
+            </div>
+           
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+           
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#over">Over ons</a></li>
+                    <li><a href="#voedselbos">Wat is een voedselbos?</a></li>
+                    <li><a href="#locatie">Locatie</a></li>
+                    <li><a href="#activiteiten">Activiteiten</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero sectie -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Samen bouwen we een groene, eetbare wijk</h1>
+            <p>Voedselbos Beatrixpark is een gemeenschappelijk initiatief waar buurtbewoners samenwerken aan een duurzame, groene omgeving met eetbare planten, bomen en struiken voor iedereen.</p>
+            <a href="#over" class="btn">Ontdek ons voedselbos</a>
+        </div>
+    </section>
+
+    <!-- Over ons sectie -->
+    <section id="over">
+        <div class="container">
+            <h2>Over ons voedselbos</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Voedselbos Beatrixpark is ontstaan uit de wens van buurtbewoners om samen te werken aan een groenere, gezondere en meer duurzame leefomgeving. Wat begon als een klein initiatief is inmiddels uitgegroeid tot een bloeiend voedselbos van bijna 1000 m².</p>
+                    <p>We verbouwen meer dan 50 soorten eetbare planten, bomen en struiken, van fruitbomen en bessenstruiken tot eetbare bloemen en kruiden. Alles wordt op ecologische wijze geteeld, zonder pesticiden of kunstmest.</p>
+                    <p>Het voedselbos is van en voor de buurt. Iedereen is welkom om te komen genieten, te helpen of te oogsten. Samen zorgen we voor een groenere wijk en leren we over duurzaam tuinieren en gezonde voeding.</p>
+                    <a href="#activiteiten" class="btn">Doe mee met activiteiten</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Voedselbos in Beatrixpark">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wat is een voedselbos sectie -->
+    <section id="voedselbos" class="features">
+        <div class="container">
+            <h2>Wat is een voedselbos?</h2>
+            <div class="feature-cards">
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Ecologisch systeem</h3>
+                    <p>Een voedselbos is een door mensen ontworpen ecosysteem naar het voorbeeld van een natuurlijk bos, met eetbare bomen, planten en struiken op verschillende hoogten.</p>
+                </div>
+               
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Zelfregulerend</h3>
+                    <p>Net als een natuurlijk bos heeft een voedselbos weinig onderhoud nodig. Planten helpen elkaar en creëren een gezond evenwicht zonder pesticiden of kunstmest.</p>
+                </div>
+               
+                <div class="card">
+                    <div class="card-icon">
+                        <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <h3>Eetbaar op alle lagen</h3>
+                    <p>Van hoge bomen met noten en fruit tot lage kruiden en bodembedekkers: alle lagen van het bos produceren voedsel voor mens en dier.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locatie sectie -->
+    <section id="locatie">
+        <div class="container">
+            <h2>Onze locatie</h2>
+            <div class="location-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <p>Interactieve kaart van voedselbos locatie</p>
+                </div>
+               
+                <div class="address">
+                    <h3>Voedselbos Beatrixpark</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Beatrixpark, hoek Kardinaal de Jongsingel en Chuchilllaan Den Bosch</p>
+                    <p>Het voedselbos bevindt zich tussen het park en de speeltuin, achter het buurthuis. Goed bereikbaar met de fiets en er is beperkte parkeergelegenheid in de buurt.</p>
+                    <p>Open: Elke dag van zonsopgang tot zonsondergang</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activiteiten sectie -->
+    <section id="activiteiten">
+        <div class="container">
+            <h2>Activiteiten & Meedoen</h2>
+            <div class="activities-container">
+                <div class="activity">
+                    <div class="activity-img">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h3>Werkochtend</h3>
+                        <p>Elke zaterdagochtend van 11:00 - 14:00 helpen we samen in het voedselbos. Iedereen is welkom, ook zonder ervaring!</p>
+                    </div>
+                </div>
+               
+                <div class="activity">
+                    <div class="activity-img">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h3>Workshops</h3>
+                        <p>Leer over permacultuur, eetbare planten, voedsel conserveren en meer. Bekijk onze agenda voor aankomende workshops.</p>
+                    </div>
+                </div>
+               
+                <div class="activity">
+                    <div class="activity-img">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h3>Kinderactiviteiten</h3>
+                        <p>Speciale middagen voor kinderen om de natuur te ontdekken, zaadbommen te maken en te leren over eetbare planten.</p>
+                    </div>
+                </div>
+               
+                <div class="activity">
+                    <div class="activity-img">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="activity-content">
+                        <h3>Oogstfeesten</h3>
+                        <p>Vier de seizoenen met ons! Samen oogsten, koken en eten we wat het voedselbos ons geeft.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact sectie -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Contact & Vragen</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Neem contact op</h3>
+                    <p>Heb je vragen over het voedselbos, wil je meehelpen of een workshop volgen? Neem gerust contact met ons op!</p>
+                   
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>voedselbosbeatrixpark@hotmail.com</p>
+                        </div>
+                    </div>
+                   
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Telefoon</h4>
+                            <p>0123 - 456 789 (elke woensdagavond)</p>
+                        </div>
+                    </div>
+                   
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h4>Buurtapp groep</h4>
+                            <p>Word lid van onze buurtapp groep voor updates en vragen</p>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="contact-form">
+                    <h3>Stuur een bericht</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Naam</label>
+                            <input type="text" id="name" required>
+                        </div>
+                       
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                       
+                        <div class="form-group">
+                            <label for="message">Bericht</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                       
+                        <button type="submit" class="btn">Verstuur bericht</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>Voedselbos Beatrixpark</h3>
+                    <p>Samen bouwen we aan een groene, eetbare wijk waar buurtbewoners verbinden met de natuur en elkaar.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+               
+                <div class="footer-column">
+                    <h3>Snelle links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#over">Over ons</a></li>
+                        <li><a href="#voedselbos">Wat is een voedselbos?</a></li>
+                        <li><a href="#locatie">Locatie</a></li>
+                        <li><a href="#activiteiten">Activiteiten</a></li>
+                    </ul>
+                </div>
+               
+                <div class="footer-column">
+                    <h3>Openingstijden</h3>
+                    <p>Het voedselbos is dagelijks toegankelijk van zonsopgang tot zonsondergang.</p>
+                    <p>Werkochtend: Zaterdag 11:00 - 14:00</p>
+                    <p>Informatieavond: Eerste donderdag van de maand</p>
+                </div>
+            </div>
+           
+            <div class="copyright">
+                <p>&copy; 2025 Voedselbos Beatrixpark. Alle rechten voorbehouden.</p>
+                <p>Dit is een gemeenschapsinitiatief van buurtbewoners.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionaliteit
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+       
+        mobileMenuBtn.addEventListener('click', function() {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active')
+                ? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
+        });
+       
+        // Smooth scrolling voor anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+               
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+               
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    // Sluit mobiel menu als open
+                    if(mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                   
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+       
+        // Contact formulier verwerking
+        const contactForm = document.getElementById('contactForm');
+       
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+           
+            // Hier zou normaal gesproken de formulierdata naar een server worden gestuurd
+            // Voor dit voorbeeld tonen we alleen een alert
+           
+            const name = document.getElementById('name').value;
+            alert(`Bedankt ${name}! Je bericht is ontvangen. We nemen zo snel mogelijk contact met je op.`);
+           
+            // Formulier resetten
+            contactForm.reset();
+        });
+       
+        // Simpele scroll animatie voor secties
+        const observerOptions = {
+            threshold: 0.1
+        };
+       
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+       
+        // Pas animatie toe op secties
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
