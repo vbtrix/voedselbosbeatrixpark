@@ -917,8 +917,8 @@ function initMap() {
     // Optioneel: Voeg extra referentiepunten toe
     const extraPoints = [
         {
-            lat: 51.6978,
-            lng: 5.2605,
+            lat: 51.69759253733058, 
+            lng: 5.260189840867136,
             title: "Hoofdingang",
             description: "Hoofdtoegang"
         },
@@ -939,7 +939,7 @@ function initMap() {
     
     // Voeg een polyline toe (wandeling)
     const pathCoordinates = [
-        [51.6978, 5.2605],  // Hoofdingang
+        [51.69759253733058, 5.260189840867136],  // Hoofdingang
         [51.6976, 5.2602],  // Gemeenschapstuin
         [51.6975, 5.2600],  // Centrum voedselbos
       
@@ -972,7 +972,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const routeBtn = document.getElementById('routeBtn');
     if (routeBtn) {
         routeBtn.addEventListener('click', function() {
-            const address = "Voedselbos Woonwijk, Groene Loper 123";
+            const address = "Voedselbos Beatrixpark, Kruiskamp 's-Hertogenbosch";
             const coordinates = "51.6975078,5.2600087";
             
             // Open route in Google Maps
@@ -998,6 +998,7 @@ document.addEventListener('DOMContentLoaded', function() {
         crossorigin=""></script>
 </body>
 </html>
+
 
 
 
