@@ -76,7 +76,75 @@
             margin-bottom: 15px;
             font-size: 1.1rem;
         }
-       
+       /* Formulier specifieke styling */
+.checkbox {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 8px;
+    background: #f9f9f9;
+    border-radius: 5px;
+}
+
+.checkbox input[type="checkbox"] {
+    margin-top: 4px;
+    margin-right: 10px;
+    width: auto;
+    min-width: 18px;
+}
+
+.checkbox label {
+    margin-bottom: 0;
+    font-size: 0.95em;
+    line-height: 1.4;
+}
+
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+    border-color: #4a7c59;
+    box-shadow: 0 0 0 2px rgba(74, 124, 89, 0.2);
+}
+
+input[type="tel"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+/* Knop laadstatus */
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.fa-spinner {
+    margin-right: 8px;
+}
+
+/* Privacyverklaring link */
+.checkbox a {
+    color: #4a7c59;
+    text-decoration: underline;
+}
+
+.checkbox a:hover {
+    color: #2d5a27;
+}
+
+
         .btn {
             display: inline-block;
             background-color: #4a7c59;
@@ -890,22 +958,115 @@
             });
         });
        
-        // Contact formulier verwerking
-        const contactForm = document.getElementById('contactForm');
-       
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-           
-            // Hier zou normaal gesproken de formulierdata naar een server worden gestuurd
-            // Voor dit voorbeeld tonen we alleen een alert
-           
-            const name = document.getElementById('name').value;
-            alert(`Bedankt ${name}! Je bericht is ontvangen. We nemen zo snel mogelijk contact met je op.`);
-           
-            // Formulier resetten
-            contactForm.reset();
-        });
-       
+// ====== FORMSPREE FORMULIER VERWERKING ======
+    document.getElementById('contactForm')?.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const form = e.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        
+        // Valideer privacy checkbox
+        const privacy = document.getElementById('privacy');
+        if (privacy && !privacy.checked) {
+            showFormMessage('Je moet akkoord gaan met de privacyvoorwaarden', 'error');
+            return;
+        }
+        
+        // Toon laadstatus
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Versturen...';
+        submitBtn.disabled = true;
+        
+        try {
+            // Verstuur via Formspree
+            const formData = new FormData(form);
+            
+            // Voeg extra velden toe voor tracking
+            formData.append('_subject', 'Nieuw bericht via Voedselbos Website');
+            formData.append('_language', 'nl');
+            
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                // Succes
+                const name = document.getElementById('name').value;
+                showFormMessage(`Bedankt ${name}! Je bericht is succesvol verzonden. We nemen binnen 2 werkdagen contact met je op.`, 'success');
+                form.reset();
+            } else {
+                // Fout bij Formspree
+                const errorData = await response.json();
+                showFormMessage('Er is een fout opgetreden bij het verzenden. Probeer het opnieuw of stuur direct een e-mail.', 'error');
+                console.error('Formspree error:', errorData);
+            }
+        } catch (error) {
+            // Netwerkfout
+            showFormMessage('Netwerkfout. Controleer je internetverbinding en probeer het opnieuw.', 'error');
+            console.error('Formulier fout:', error);
+        } finally {
+            // Reset knop
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+        }
+    });
+    
+    // Helper functie voor formulierberichten
+    function showFormMessage(text, type) {
+        // Verwijder eventueel bestaand bericht
+        const existingMsg = document.getElementById('formMessage');
+        if (existingMsg) {
+            existingMsg.remove();
+        }
+        
+        // Maak nieuw bericht element
+        const messageDiv = document.createElement('div');
+        messageDiv.id = 'formMessage';
+        messageDiv.style.cssText = `
+            margin-top: 15px;
+            padding: 12px 15px;
+            border-radius: 5px;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        `;
+        
+        if (type === 'success') {
+            messageDiv.style.backgroundColor = '#e9f5e9';
+            messageDiv.style.color = '#2d5a27';
+            messageDiv.style.border = '1px solid #7cb371';
+        } else {
+            messageDiv.style.backgroundColor = '#fdeaea';
+            messageDiv.style.color = '#d32f2f';
+            messageDiv.style.border = '1px solid #f5c6cb';
+        }
+        
+        messageDiv.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+            ${text}
+        `;
+        
+        // Plaats het bericht na de submit knop
+        const submitBtn = document.querySelector('#contactForm button[type="submit"]');
+        submitBtn.parentNode.insertBefore(messageDiv, submitBtn.nextSibling);
+        
+        // Verberg bericht na 10 seconden
+        setTimeout(() => {
+            if (messageDiv.parentNode) {
+                messageDiv.style.opacity = '0';
+                messageDiv.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    if (messageDiv.parentNode) {
+                        messageDiv.remove();
+                    }
+                }, 300);
+            }
+        }, 10000);
+    }
+
         // Simpele scroll animatie voor secties
         const observerOptions = {
             threshold: 0.1
@@ -1070,6 +1231,7 @@ document.addEventListener('DOMContentLoaded', function() {
         crossorigin=""></script>
 </body>
 </html>
+
 
 
 
